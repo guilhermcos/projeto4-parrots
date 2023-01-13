@@ -65,12 +65,12 @@ function Embaralhar(quantidade) {
     for (var i = 0; i < quantidade; i++){
         var cards = document.querySelector(".cards");
         cards.innerHTML += `
-        <div class="card" onclick="cliqueCarta(this)">
+        <div data-test="card" class="card" onclick="cliqueCarta(this)">
         <div class="front-face face">
-            <img src="images/back.png" alt="">
+            <img data-test="face-down-image" src="images/back.png" alt="">
         </div>
         <div class="back-face face">
-            <img src="images/${listaFinal[i]}" alt="">
+            <img data-test="face-up-image" src="images/${listaFinal[i]}" alt="">
         </div>`;
     }
 }
