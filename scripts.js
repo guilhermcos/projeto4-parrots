@@ -1,3 +1,4 @@
+Embaralhar(prompt("Com quantas cartas você quer jogar?"));
 function cliqueCarta(cartaClicada) {
     const checaSeAchada = cartaClicada.querySelector(".achou");
     let checaSeMesma = document.querySelector(".selecionado");
@@ -15,32 +16,58 @@ function cliqueCarta(cartaClicada) {
             anterior.classList.add("anterior");
         }
 
-            cartaClicada.querySelector(".front-face").classList.add("selecionado");
-            let seAnterior = document.querySelector(".anterior");
-            if (seAnterior === null) {//se não existe carta anterior
+        cartaClicada.querySelector(".front-face").classList.add("selecionado");
+        let seAnterior = document.querySelector(".anterior");
+        if (seAnterior === null) {//se não existe carta anterior
+            viraCarta(cartaClicada);
+        } else {//se  existe carta anterior
+            seAnterior = seAnterior.parentNode
+            if (seAnterior.querySelector(".back-face").innerHTML == cartaClicada.querySelector(".back-face").innerHTML) {
+                //se front-face da selecionada e anterior são iguais
+                cartaClicada.querySelector(".front-face").classList.add("achou");
+                seAnterior.querySelector(".front-face").classList.add("achou");
                 viraCarta(cartaClicada);
-            } else {//se  existe carta anterior
-                seAnterior = seAnterior.parentNode
-                if (seAnterior.querySelector(".back-face").innerHTML == cartaClicada.querySelector(".back-face").innerHTML) {
-                    //se front-face da selecionada e anterior são iguais
-                    console.log("igual");
-                    cartaClicada.querySelector(".front-face").classList.add("achou");
-                    seAnterior.querySelector(".front-face").classList.add("achou");
-                    viraCarta(cartaClicada);
-                    cartaClicada.querySelector(".front-face").classList.remove("selecionado");
-                    seAnterior.querySelector(".front-face").classList.remove("anterior");
-                } else {
-                    console.log("diferente");
-                    viraCarta(cartaClicada);
-                    setTimeout(viraCarta, 1000, cartaClicada);
-                    setTimeout(viraCarta, 1000, seAnterior);
-                    cartaClicada.querySelector(".front-face").classList.remove("selecionado");
-                    seAnterior.querySelector(".front-face").classList.remove("anterior");
-                }
+                cartaClicada.querySelector(".front-face").classList.remove("selecionado");
+                seAnterior.querySelector(".front-face").classList.remove("anterior");
+            } else {
+                viraCarta(cartaClicada);
+                setTimeout(viraCarta, 1000, cartaClicada);
+                setTimeout(viraCarta, 1000, seAnterior);
+                cartaClicada.querySelector(".front-face").classList.remove("selecionado");
+                seAnterior.querySelector(".front-face").classList.remove("anterior");
             }
         }
     }
+}
 function viraCarta(cartaQvira) {
     cartaQvira.querySelector(".front-face").classList.toggle("giro-front-face");
     cartaQvira.querySelector(".back-face").classList.toggle("giro-back-face");
+}
+function Embaralhar(quantidade) {
+    const listaTipos = ["bobrossparrot.gif","explodyparrot.gif","fiestaparrot.gif","metalparrot.gif","revertitparrot.gif","tripletsparrot.gif","unicornparrot.gif"];
+    listaTipos.sort(comparador);
+    const listaFinal = [];
+    for (var i = 0; i < quantidade/2; i++){
+        listaFinal.push(listaTipos[i]);
+    }
+    for (var i = 0; i < quantidade/2; i++){
+        listaFinal.push(listaFinal[i]);
+    }
+
+    listaFinal.sort(comparador);
+
+    for (var i = 0; i < quantidade; i++){
+        var cards = document.querySelector(".cards");
+        cards.innerHTML += `
+        <div class="card" onclick="cliqueCarta(this)">
+        <div class="front-face face">
+            <img src="images/back.png" alt="">
+        </div>
+        <div class="back-face face">
+            <img src="images/${listaFinal[i]}" alt="">
+        </div>`;
+    }
+}
+function comparador() {
+    return Math.random() - 0.5;
 }
