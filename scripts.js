@@ -2,10 +2,11 @@ Embaralhar(prompt("Com quantas cartas você quer jogar?"));
 function cliqueCarta(cartaClicada) {
     const checaSeAchada = cartaClicada.querySelector(".achou");
     let checaSeMesma = document.querySelector(".selecionado");
+    impedeClick = document.querySelector(".anti-click")
     if (checaSeMesma != null) {
         checaSeMesma = checaSeMesma.parentNode;
     }
-    if (checaSeAchada != null || checaSeMesma === cartaClicada) {//se já achada
+    if (checaSeAchada != null || checaSeMesma === cartaClicada || impedeClick != null) {//se já achada
         //nada aconteca
     } else {//se carta livre para seleção
 
@@ -31,13 +32,18 @@ function cliqueCarta(cartaClicada) {
                 seAnterior.querySelector(".front-face").classList.remove("anterior");
             } else {
                 viraCarta(cartaClicada);
-                setTimeout(viraCarta, 1000, cartaClicada);
-                setTimeout(viraCarta, 1000, seAnterior);
                 cartaClicada.querySelector(".front-face").classList.remove("selecionado");
                 seAnterior.querySelector(".front-face").classList.remove("anterior");
+                cartaClicada.querySelector(".front-face").classList.add("anti-click");
+                setTimeout(viraCarta, 1000, cartaClicada);
+                setTimeout(viraCarta, 1000, seAnterior);
+                setTimeout(tiraAnticlick, 1000, cartaClicada);
             }
         }
     }
+}
+function tiraAnticlick(desse){
+    desse.querySelector(".front-face").classList.remove("anti-click")
 }
 function viraCarta(cartaQvira) {
     cartaQvira.querySelector(".front-face").classList.toggle("giro-front-face");
