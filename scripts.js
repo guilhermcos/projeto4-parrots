@@ -1,6 +1,8 @@
 inicioJogo()
-var cards, achadas, quant;
+var cards, achadas, quant, divTimer, timer;
 function inicioJogo() {
+    divTimer = document.querySelector(".timer");
+    divTimer.innerHTML = -1;
     cards = document.querySelector("div.cards");
     cards.innerHTML = "";
     var quantCartas = 0;
@@ -54,6 +56,7 @@ function cliqueCarta(cartaClicada) {
     }
     const seGanhou = document.querySelectorAll(".achou");
     if (seGanhou.length === quant) {
+        clearInterval(timer);
         setTimeout(alert, 500, "Parabéns!! Você ganhou");
         setTimeout(reinicioJogo, 600);
     }
@@ -102,4 +105,7 @@ function embaralhar(quantidade) {
 }
 function comparador() {
     return Math.random() - 0.5;
+}
+function timer(){
+    divTimer.innerHTML = Number(divTimer.innerHTML)+1;
 }

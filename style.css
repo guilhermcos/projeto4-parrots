@@ -7,12 +7,11 @@ body {
     width: 100%;
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
     margin-top: 40px;
-    height: 63px;
 }
 
 .titulo h1 {
+  text-align: center;
     font-family: roboto, sans-serif;
     font-weight: 700;
     font-size: 56px;
@@ -21,15 +20,15 @@ body {
 }
 
 .cards {
-    width: ;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    max-width: 862px;
-    margin-top: 47px;
-    margin-left: auto;
-    margin-right: auto;
-    gap: 34px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 862px;
+  margin-top: 47px;
+  margin-left: auto;
+  margin-right: auto;
+  gap: 34px;
 }
 
 .card {
@@ -73,3 +72,34 @@ body {
   .giro-front-face {
     transform: rotateY(-180deg);
   }
+
+  .timer {
+    height: 47px;
+    font-family: roboto, sans-serif;
+    font-weight: 700;
+    font-size: 45px;
+    line-height: 42.19px;
+    color: #86BD8D;
+    position: fixed;
+    top: 16px;
+    right: 25px;
+  }
+
+@media (max-width: 430px){
+  .titulo h1 {
+    font-size: 36px;
+    line-height: 42.19px;
+  }
+}
+
+  @media (max-width: 330px) {
+    .titulo h1 {
+      font-size: 36px;
+      line-height: 42.19px;
+    }
+
+    .cards {
+      flex-direction: column;
+      align-items: center;
+    }
+}
