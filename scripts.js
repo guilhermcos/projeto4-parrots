@@ -1,4 +1,15 @@
-Embaralhar(prompt("Com quantas cartas você quer jogar?"));
+inicioJogo()
+var cards, achadas, quant;
+function inicioJogo() {
+    cards = document.querySelector("div.cards");
+    cards.innerHTML = "";
+    var quantCartas = 0;
+    while (quantCartas % 2 != 0 || quantCartas > 14 || quantCartas < 4) {
+        quantCartas = prompt("Com quantas cartas você quer jogar? (qualquer quantidade par de 4 à 14)");
+        quantCartas = Number(quantCartas)
+    }
+    embaralhar(quantCartas);
+}
 function cliqueCarta(cartaClicada) {
     const checaSeAchada = cartaClicada.querySelector(".achou");
     let checaSeMesma = document.querySelector(".selecionado");
@@ -41,28 +52,43 @@ function cliqueCarta(cartaClicada) {
             }
         }
     }
+    const seGanhou = document.querySelectorAll(".achou");
+    if (seGanhou.length === quant) {
+        setTimeout(alert, 500, "Parabéns!! Você ganhou");
+        setTimeout(reinicioJogo, 600);
+    }
 }
-function tiraAnticlick(desse){
+function reinicioJogo() {
+    var jogarDenovo = "";
+    while (jogarDenovo != "sim" && jogarDenovo != "não") {
+        jogarDenovo = prompt("Gostaria de reiniciar o jogo? ('sim' ou 'não')");
+        if (jogarDenovo === "sim") {
+            inicioJogo();
+        }
+    }
+}
+function tiraAnticlick(desse) {
     desse.querySelector(".front-face").classList.remove("anti-click")
 }
 function viraCarta(cartaQvira) {
     cartaQvira.querySelector(".front-face").classList.toggle("giro-front-face");
     cartaQvira.querySelector(".back-face").classList.toggle("giro-back-face");
 }
-function Embaralhar(quantidade) {
-    const listaTipos = ["bobrossparrot.gif","explodyparrot.gif","fiestaparrot.gif","metalparrot.gif","revertitparrot.gif","tripletsparrot.gif","unicornparrot.gif"];
+function embaralhar(quantidade) {
+    quant = Number(quantidade);
+    const listaTipos = ["bobrossparrot.gif", "explodyparrot.gif", "fiestaparrot.gif", "metalparrot.gif", "revertitparrot.gif", "tripletsparrot.gif", "unicornparrot.gif"];
     listaTipos.sort(comparador);
     const listaFinal = [];
-    for (var i = 0; i < quantidade/2; i++){
+    for (var i = 0; i < quantidade / 2; i++) {
         listaFinal.push(listaTipos[i]);
     }
-    for (var i = 0; i < quantidade/2; i++){
+    for (var i = 0; i < quantidade / 2; i++) {
         listaFinal.push(listaFinal[i]);
     }
 
     listaFinal.sort(comparador);
 
-    for (var i = 0; i < quantidade; i++){
+    for (var i = 0; i < quantidade; i++) {
         var cards = document.querySelector(".cards");
         cards.innerHTML += `
         <div data-test="card" class="card" onclick="cliqueCarta(this)">
