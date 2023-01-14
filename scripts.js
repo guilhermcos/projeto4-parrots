@@ -1,8 +1,10 @@
 inicioJogo()
-var cards, achadas, quant, divTimer, timer;
+var cards, achadas, quant, divTimer, timer, tempo, contaJogadas;
 function inicioJogo() {
     divTimer = document.querySelector(".timer");
+    contaJogadas = 0;
     divTimer.innerHTML = -1;
+    tempo = setInterval(timer, 1000);
     cards = document.querySelector("div.cards");
     cards.innerHTML = "";
     var quantCartas = 0;
@@ -22,7 +24,7 @@ function cliqueCarta(cartaClicada) {
     if (checaSeAchada != null || checaSeMesma === cartaClicada || impedeClick != null) {//se já achada
         //nada aconteca
     } else {//se carta livre para seleção
-
+        contaJogadas += 1;
         const checaSelecionado = document.querySelector(".selecionado");
         if (checaSelecionado != null) {//se já existe alguma carta selecionada
             const anterior = checaSelecionado;
@@ -56,8 +58,9 @@ function cliqueCarta(cartaClicada) {
     }
     const seGanhou = document.querySelectorAll(".achou");
     if (seGanhou.length === quant) {
-        clearInterval(timer);
-        setTimeout(alert, 500, "Parabéns!! Você ganhou");
+        clearInterval(tempo);
+        tempoJogo = divTimer.innerHTML;
+        setTimeout(alert, 500, `Você ganhou em ${contaJogadas} jogadas! A duração do jogo foi de ${tempoJogo} segundos!`);
         setTimeout(reinicioJogo, 600);
     }
 }
