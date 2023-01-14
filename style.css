@@ -90,6 +90,10 @@ body {
     font-size: 36px;
     line-height: 42.19px;
   }
+
+  .timer {
+    top: 4px;
+  }
 }
 
   @media (max-width: 330px) {
@@ -101,5 +105,9 @@ body {
     .cards {
       flex-direction: column;
       align-items: center;
+    }
+
+    .timer {
+      top: 5px;
     }
 }
