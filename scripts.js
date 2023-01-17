@@ -1,17 +1,17 @@
 inicioJogo()
-var cards, achadas, quant, divTimer, timer, tempo, contaJogadas;
+var achadas, quant, divTimer, timer, tempo, contaJogadas;
 function inicioJogo() {
     divTimer = document.querySelector(".timer");
     contaJogadas = 0;
-    divTimer.innerHTML = -1;
-    tempo = setInterval(timer, 1000);
-    cards = document.querySelector("div.cards");
+    var cards = document.querySelector("div.cards");
     cards.innerHTML = "";
     var quantCartas = 0;
-    while (quantCartas % 2 != 0 || quantCartas > 14 || quantCartas < 4) {
+    while (quantCartas % 2 !== 0 || quantCartas > 14 || quantCartas < 4) {
         quantCartas = prompt("Com quantas cartas você quer jogar? (qualquer quantidade par de 4 à 14)");
         quantCartas = Number(quantCartas)
     }
+    divTimer.innerHTML = 0;
+    tempo = setInterval(timer, 1000);
     embaralhar(quantCartas);
 }
 function cliqueCarta(cartaClicada) {
@@ -109,6 +109,6 @@ function embaralhar(quantidade) {
 function comparador() {
     return Math.random() - 0.5;
 }
-function timer(){
-    divTimer.innerHTML = Number(divTimer.innerHTML)+1;
+function timer() {
+    divTimer.innerHTML = Number(divTimer.innerHTML) + 1;
 }
